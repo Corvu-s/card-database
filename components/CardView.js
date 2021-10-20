@@ -16,7 +16,7 @@ export default function CardView({ message }) {
             <img className="max-w-md " src={item.imageUrl} alt="card image" />
           </div>
 
-          <div class="px-6 pt-4 pb-2">
+          <div className="px-6 pt-4 pb-2">
             {item.colors.map((color, index) => (
               <span
                 key={index}
