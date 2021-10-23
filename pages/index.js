@@ -1,14 +1,15 @@
 import Navbar from "../components/Navbar";
 import CardView from "../components/CardView";
-
-import cheerio from "cheerio";
-import axios from "axios";
-
 import Filter from "../components/Filter";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { Context } from "../context/Store";
 
-//https://www.section.io/engineering-education/google-drive-api-nodejs/
+//state stuff
+//https://medium.com/geekculture/how-to-use-context-usereducer-and-localstorage-in-next-js-cc7bc925d3f2
+import { useAppContext } from "../context/Store";
+
 export default function Home({ data }) {
+  const [state, dispatch] = useContext(Context); //important for global state
   let collectionData = [
     { name: "Dominaria", code: "DOM" },
     { name: "Guilds Of Ravnica", code: "GRN" },
@@ -18,11 +19,18 @@ export default function Home({ data }) {
   ];
 
   const [collectionNames, setCollection] = useState(collectionData);
-  const [collectionChoice, setCollectionChoice] = useState("");
+  const [collectionChoice, setCollectionChoice] = useState(0);
   //console.log(data);
+
+  //console.log(state);
+  useEffect(() => {
+    dispatch({ type: "SET_LOGGED_IN" });
+    console.log(state);
+  }, [collectionChoice]);
   return (
     <div>
       <Navbar />
+
       <Filter />
       <CardView message={data} />
     </div>
@@ -30,16 +38,8 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps() {
-  //https://en.wikipedia.org/wiki/List_of_Magic:_The_Gathering_sets
-  const info = await axios.get(
-    "https://en.wikipedia.org/wiki/List_of_Magic:_The_Gathering_sets"
-  );
+  // https://en.wikipedia.org/wiki/List_of_Magic:_The_Gathering_sets
 
-  const $ = cheerio.load(info);
-  const title = $(".wikitable").text();
-  const lastScraped = new Date().toISOString();
-  console.log("Title" + title);
-  console.log(lastScraped);
   const res = await fetch(`https://api.magicthegathering.io/v1/cards?set=KTK`);
   const data = await res.json();
   if (!data) {
