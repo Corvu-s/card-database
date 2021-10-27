@@ -9,14 +9,6 @@ import { Context } from "../context/Store";
 
 export default function Home({ data }) {
   const [state, dispatch] = useContext(Context); //important for global state
-  let collectionData = [
-    { name: "Dominaria", code: "DOM" },
-    { name: "Guilds Of Ravnica", code: "GRN" },
-    { name: "Ravnica Allegiance", code: "RNA" },
-    { name: "War of the Spark", code: "WAR" },
-    { name: "Throne of Eldraine", code: "ELD" },
-  ];
-
   const [cards, setCards] = useState();
 
   async function getCards() {
@@ -37,23 +29,23 @@ export default function Home({ data }) {
     <div>
       <Navbar />
 
-      <Filter sets={collectionData} />
+      <Filter sets={state.sets} />
       {cards == undefined ? <p>Loading Cards</p> : <CardView message={cards} />}
     </div>
   );
 }
 
-export async function getStaticProps({ context }) {
-  // https://scryfall.com/docs/api/sets/all
-  const res = await fetch(`https://api.magicthegathering.io/v1/cards?set=KTK`);
-  const data = await res.json();
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
+// export async function getStaticProps({ context }) {
+//   // https://scryfall.com/docs/api/sets/all
+//   const res = await fetch(`https://api.magicthegathering.io/v1/cards?set=KTK`);
+//   const data = await res.json();
+//   if (!data) {
+//     return {
+//       notFound: true,
+//     };
+//   }
 
-  return {
-    props: { data }, // will be passed to the page component as props
-  };
-}
+//   return {
+//     props: { data }, // will be passed to the page component as props
+//   };
+// }
