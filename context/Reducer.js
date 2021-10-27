@@ -7,6 +7,12 @@ const Reducer = (state, action) => {
         isLoggedIn: true,
       };
 
+    case "SET_CHOICE":
+      return {
+        ...state,
+        set: action.data,
+      };
+
     default:
       return state;
   }

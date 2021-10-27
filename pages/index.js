@@ -6,7 +6,6 @@ import { Context } from "../context/Store";
 
 //state stuff
 //https://medium.com/geekculture/how-to-use-context-usereducer-and-localstorage-in-next-js-cc7bc925d3f2
-import { useAppContext } from "../context/Store";
 
 export default function Home({ data }) {
   const [state, dispatch] = useContext(Context); //important for global state
@@ -18,28 +17,34 @@ export default function Home({ data }) {
     { name: "Throne of Eldraine", code: "ELD" },
   ];
 
-  const [collectionNames, setCollection] = useState(collectionData);
-  const [collectionChoice, setCollectionChoice] = useState(0);
-  //console.log(data);
+  const [cards, setCards] = useState();
 
-  //console.log(state);
+  async function getCards() {
+    const res = await fetch(
+      `https://api.magicthegathering.io/v1/cards?set=${state.set}`
+    );
+    const data = await res.json();
+    //console.log(data);
+
+    setCards(data);
+    return data;
+  }
   useEffect(() => {
-    dispatch({ type: "SET_LOGGED_IN" });
-    console.log(state);
-  }, [collectionChoice]);
+    getCards();
+  }, [state.set]);
+
   return (
     <div>
       <Navbar />
 
-      <Filter />
-      <CardView message={data} />
+      <Filter sets={collectionData} />
+      {cards == undefined ? <p>Loading Cards</p> : <CardView message={cards} />}
     </div>
   );
 }
 
-export async function getStaticProps() {
-  // https://en.wikipedia.org/wiki/List_of_Magic:_The_Gathering_sets
-
+export async function getStaticProps({ context }) {
+  // https://scryfall.com/docs/api/sets/all
   const res = await fetch(`https://api.magicthegathering.io/v1/cards?set=KTK`);
   const data = await res.json();
   if (!data) {

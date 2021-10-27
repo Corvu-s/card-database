@@ -1,90 +1,43 @@
-import react from "react";
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { useContext, useState, useEffect } from "react";
+import { Context } from "../context/Store";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Filter() {
+export default function Filter({ sets }) {
+  const [state, dispatch] = useContext(Context); //important for global state
+  const [selected, setSelected] = useState("");
+  function handleSetSelection(e) {
+    setSelected(e.target.value); //set the current value of the select form
+    state.sets.map((item) => {
+      //find the corrisponding name in state and get its set code
+      if (item.name == e.target.value) {
+        dispatch({ type: "SET_CHOICE", data: item.code });
+      }
+    });
+  }
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
   return (
-    <Menu as="div" className="relative inline-block text-left">
-      <div>
-        <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-          Options
-          <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-        </Menu.Button>
+    <div className="flex flex-wrap justify-center">
+      <div className="inline-block relative w-64">
+        <select
+          value={selected}
+          onChange={(e) => handleSetSelection(e)}
+          className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+        >
+          {sets.map((item, index) => (
+            <option key={index}>{item.name}</option>
+          ))}
+        </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <svg
+            className="fill-current h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+          </svg>
+        </div>
       </div>
-
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
-        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Account settings
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Support
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  License
-                </a>
-              )}
-            </Menu.Item>
-            <form method="POST" action="#">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    type="submit"
-                    className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "block w-full text-left px-4 py-2 text-sm"
-                    )}
-                  >
-                    Sign out
-                  </button>
-                )}
-              </Menu.Item>
-            </form>
-          </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
+    </div>
   );
 }
