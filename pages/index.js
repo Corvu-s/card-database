@@ -9,28 +9,13 @@ import { Context } from "../context/Store";
 
 export default function Home({ data }) {
   const [state, dispatch] = useContext(Context); //important for global state
-  const [cards, setCards] = useState();
-
-  async function getCards() {
-    const res = await fetch(
-      `https://api.magicthegathering.io/v1/cards?set=${state.set}`
-    );
-    const data = await res.json();
-    //console.log(data);
-
-    setCards(data);
-    return data;
-  }
-  useEffect(() => {
-    getCards();
-  }, [state.set]);
 
   return (
     <div>
       <Navbar />
 
       <Filter sets={state.sets} />
-      {cards == undefined ? <p>Loading Cards</p> : <CardView message={cards} />}
+      <CardView />
     </div>
   );
 }

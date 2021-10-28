@@ -12,6 +12,12 @@ const Reducer = (state, action) => {
         ...state,
         set: action.data,
       };
+    case "SET_TYPE":
+      //console.log("filter type" + action.data);
+      return {
+        ...state,
+        cardType: action.data,
+      };
 
     default:
       return state;

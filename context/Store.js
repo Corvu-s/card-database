@@ -1,6 +1,12 @@
 import React, { createContext, useReducer } from "react";
 import Reducer from "./Reducer";
 
+async function thing() {
+  const res = await fetch(`https://api.magicthegathering.io/v1/cards?set=DOM`);
+  const data = await res.json();
+  return data.cards;
+}
+
 const initialState = {
   sets: [
     { name: "Dominaria", code: "DOM" },
@@ -11,6 +17,8 @@ const initialState = {
   ],
   isLoggedIn: false,
   set: "DOM",
+  cardType: "",
+  cards: "thing()",
 };
 
 const Store = ({ children }) => {
