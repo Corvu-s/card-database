@@ -5,7 +5,7 @@ export default function Navbar() {
     <nav className="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-white shadow sm:items-baseline w-full">
       <div className="mb-2 sm:mb-0">
         <a
-          href="/home"
+          href="/"
           className="text-2xl no-underline text-grey-darkest hover:text-blue-dark"
         >
           Home
@@ -13,22 +13,22 @@ export default function Navbar() {
       </div>
       <div>
         <a
-          href="/one"
+          href="/Profile"
           className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
         >
-          One
+          Profile
         </a>
         <a
-          href="/two"
+          href="/About"
           className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
         >
-          Two
+          About
         </a>
         <a
-          href="/three"
+          href="/Roadmap"
           className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
         >
-          Three
+          Roadmap
         </a>
       </div>
     </nav>

@@ -1,10 +1,11 @@
 import { useContext, useState, useEffect } from "react";
 import { Context } from "../context/Store";
-
+import SearchBar from "../components/SearchBar";
 export default function Filter({ sets }) {
   const [state, dispatch] = useContext(Context); //important for global state
   const [selected, setSelected] = useState("");
   const [typeSelection, setType] = useState("All"); //make the default value all cards initially returned
+  const [search, setSearch] = useState("");
   const cardType = [
     { type: "All" },
     { type: "Creature" },
@@ -26,9 +27,9 @@ export default function Filter({ sets }) {
     setType(e.target.value);
     dispatch({ type: "SET_TYPE", data: e.target.value });
   }
-  // useEffect(() => {
-  //   console.log(state);
-  // }, [state]);
+  useEffect(() => {
+    console.log(search);
+  }, [search]);
   return (
     <div className="flex flex-wrap justify-center">
       <div className="inline-block relative w-64">
@@ -72,6 +73,7 @@ export default function Filter({ sets }) {
           </svg>
         </div>
       </div>
+      <SearchBar />
     </div>
   );
 }

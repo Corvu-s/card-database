@@ -14,6 +14,12 @@ const initialState = {
     { name: "Ravnica Allegiance", code: "RNA" },
     { name: "War of the Spark", code: "WAR" },
     { name: "Throne of Eldraine", code: "ELD" },
+    {name:"Theros Beyond Death",code:"THB",},
+    {name:"Ikoria: Lair of Behemoths",code:"IKO"},
+    {name:"Zendikar Rising",code:"ZNR"},
+    {name:"Kaldheim",code:"KHM"},
+    {name:"Strixhaven: School of Mages",code:"STX"},
+    
   ],
   selectedCard:{},
   isLoggedIn: false,
