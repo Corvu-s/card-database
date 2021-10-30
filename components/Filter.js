@@ -14,7 +14,6 @@ export default function Filter({ sets }) {
   ];
   function handleSetSelection(e) {
     setSelected(e.target.value); //set the current value of the select form
-    setType("All");
     state.sets.map((item) => {
       //find the corrisponding name in state and get its set code
       if (item.name == e.target.value) {

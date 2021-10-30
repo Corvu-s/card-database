@@ -18,6 +18,11 @@ const Reducer = (state, action) => {
         ...state,
         cardType: action.data,
       };
+    case "SET_SELECTED_CARD":
+      return{
+        ...state,
+        selectedCard:action.data
+      }
 
     default:
       return state;

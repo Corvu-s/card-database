@@ -1,6 +1,6 @@
 import { Context } from "../context/Store";
 import { useContext, useEffect, useState } from "react";
-
+import Link from "next/link"
 export default function CardView() {
   const [state, dispatch] = useContext(Context); //important for global state
   const [cards, setCards] = useState([]); //set a refrence to the origional set of cards here, use this to
@@ -15,7 +15,7 @@ export default function CardView() {
   }
   useEffect(() => {
     getCards();
-  }, [state.set, state.cardType]);
+  }, [state.set]);
 
   useEffect(() => {
     ////*very important, makes sure cards is not one step behind! just use another useEffect with the state (cards) that you want to keep updated
@@ -29,17 +29,24 @@ export default function CardView() {
           card.types.map((type, index) => {
             if (type == state.cardType) {
               dump.push(card);
-              console.log(card);
+              //console.log(card);
             }
           });
         });
         setFilterCards(dump);
       }
     }
-    console.log("filter cards" + filterCards);
-  }, [cards]);
+    //console.log("filter cards" + filterCards);
+  }, [cards,state.cardType]);
+  function defaultImage(){
+    return(
+      <img src="defaultCard.jpg" alt="default image"/>
+    )
+  }
   return (
     <div className="flex flex-wrap justify-center space-x-4">
+ 
+
       {filterCards == undefined ? (
         <p>Loading Cards</p>
       ) : (
@@ -49,18 +56,21 @@ export default function CardView() {
             className="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg"
           >
             <div className="text-center ">
+            <Link href="/HighlightCard">
               <a
                 onClick={() => {
-                  //use this to take the person to a detailed view of the card
-                  console.log(item);
+                  dispatch({type:"SET_SELECTED_CARD", data:{item}})
                 }}
               >
+
                 <img
                   className="max-w-md "
                   src={item.imageUrl}
-                  alt="card image"
+                  alt="defaultCard"
+                  onError={(e)=>{e.target.onerror = null; e.target.src="defaultCard.jpg"}}
+
                 />
-              </a>
+              </a></Link>
             </div>
 
             <div className="px-6 pt-4 pb-2">

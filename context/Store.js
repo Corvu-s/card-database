@@ -15,6 +15,7 @@ const initialState = {
     { name: "War of the Spark", code: "WAR" },
     { name: "Throne of Eldraine", code: "ELD" },
   ],
+  selectedCard:{},
   isLoggedIn: false,
   set: "DOM",
   cardType: "",
