@@ -4,6 +4,7 @@ import Filter from "../components/Filter";
 import { useState, useEffect, useContext } from "react";
 import { Context } from "../context/Store";
 import Link from "next/link";
+
 //state stuff
 //https://medium.com/geekculture/how-to-use-context-usereducer-and-localstorage-in-next-js-cc7bc925d3f2
 

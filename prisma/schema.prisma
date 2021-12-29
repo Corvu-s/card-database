@@ -20,3 +20,16 @@ model Card {
   updatedAt DateTime @updatedAt
   name      String   @db.VarChar(255)
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+}
+
+enum Role {
+  USER
+  ADMIN
+}
