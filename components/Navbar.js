@@ -3,34 +3,7 @@ import React from "react";
 export default function Navbar() {
   return (
     <nav className="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-white shadow sm:items-baseline w-full">
-      <div className="mb-2 sm:mb-0">
-        <a
-          href="/"
-          className="text-2xl no-underline text-grey-darkest hover:text-blue-dark"
-        >
-          Home
-        </a>
-      </div>
-      <div>
-        <a
-          href="/Profile"
-          className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
-        >
-          Profile
-        </a>
-        <a
-          href="/About"
-          className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
-        >
-          About
-        </a>
-        <a
-          href="/Roadmap"
-          className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
-        >
-          Roadmap
-        </a>
-      </div>
+      <div className="mb-2 sm:mb-0">nav</div>
     </nav>
   );
 }
